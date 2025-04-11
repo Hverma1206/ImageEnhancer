@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import ImageUpload from './ImageUpload'
 import ImagePreview from './ImagePreview'
 import ProcessExplanation from './ProcessExplanation'
-import { getEnhancementExplanation } from '../utils/imageEnhancer'
+// import { getEnhancementExplanation } from '../utils/imageEnhancer'
 import { enhanceImageWithPython } from '../api/enhancerApi'
 
 const Home = () => {
@@ -10,10 +10,9 @@ const Home = () => {
   const [enhancedImage, setEnhancedImage] = useState(null)
   const [isEnhancing, setIsEnhancing] = useState(false)
   const [originalFilename, setOriginalFilename] = useState('')
-  const [enhancementInfo] = useState(getEnhancementExplanation())
+//   const [enhancementInfo] = useState(getEnhancementExplanation())
   
   const handleImageUpload = async (file) => {
-    // Set the original image
     const imageUrl = URL.createObjectURL(file)
     setOriginalImage(imageUrl)
     setOriginalFilename(file.name)
@@ -21,7 +20,6 @@ const Home = () => {
     setIsEnhancing(true)
     
     try {
-      // Use our Python backend for enhancement
       const enhancedImageData = await enhanceImageWithPython(file, {
         brightness: 1.2,
         contrast: 1.2,
@@ -49,7 +47,7 @@ const Home = () => {
         isEnhancing={isEnhancing}
         originalFilename={originalFilename}
       />
-      {originalImage && <ProcessExplanation explanationData={enhancementInfo} />}
+      {/* {originalImage && <ProcessExplanation explanationData={enhancementInfo} />} */}
     </div>
   )
 }

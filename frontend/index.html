@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Enhancer</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <h1>Image Enhancer</h1>
+            <div id="server-status" class="status">Server: Checking...</div>
+        </header>
+
+        <main>
+            <div class="panel">
+                <h2>Upload Image</h2>
+                <form id="upload-form">
+                    <div class="form-group">
+                        <label for="image-input">Select an image:</label>
+                        <input type="file" id="image-input" accept="image/*">
+                    </div>
+                    
+                    <div id="enhancement-controls" class="enhancement-controls">
+                        <h3>Enhancement Settings</h3>
+                        <!-- Sliders will be added dynamically -->
+                    </div>
+                    
+                    <button type="submit" class="enhance-button">Enhance Image</button>
+                </form>
+                
+                <div id="message" class="message hidden"></div>
+            </div>
+            
+            <div class="images-container">
+                <div id="original-preview" class="image-preview hidden">
+                    <h3>Original Image</h3>
+                    <img id="original-image" src="" alt="Original image">
+                </div>
+                
+                <div id="loading-indicator" class="loading hidden">
+                    <div class="spinner"></div>
+                    <p>Enhancing image...</p>
+                </div>
+                
+                <div id="enhanced-preview" class="image-preview hidden">
+                    <h3>Enhanced Image</h3>
+                    <img id="enhanced-image" src="" alt="Enhanced image">
+                    <div id="processing-time" class="processing-time"></div>
+                    <a id="download-link" class="download-button" download="enhanced-image.jpg">Download Enhanced Image</a>
+                </div>
+            </div>
+        </main>
+        
+        <aside class="history-panel">
+            <h2>Recent Processing History</h2>
+            <ul id="history-list" class="history-list">
+                <li class="no-history">No processing history yet</li>
+            </ul>
+        </aside>
+        
+        <footer>
+            <p>Image Enhancer &copy; 2023</p>
+        </footer>
+    </div>
+    
+    <script src="app.js"></script>
+</body>
+</html>
