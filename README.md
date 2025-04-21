@@ -10,7 +10,13 @@ An image enhancement web application with a React frontend and Python backend.
 npm install
 ```
 
-2. Start the React development server:
+2. Create a `.env` file in the root directory with the following content:
+```
+API_URL=your_python_endpoint
+```
+Replace `your_python_endpoint` with your Python backend URL (e.g., `http://127.0.0.1:5000`).
+
+3. Start the React development server:
 ```
 npm run dev
 ```
@@ -40,7 +46,7 @@ pip install -r requirements.txt
 python app.py
 ```
 
-The backend server will start on http://localhost:5000
+The backend server will start
 
 ## How It Works
 
