@@ -1,8 +1,4 @@
-/**
- * Image enhancement utility functions
- */
 
-// Applies brightness and contrast adjustments
 export const enhanceImage = (imageUrl, options = {}) => {
   return new Promise((resolve) => {
     const img = new Image();
@@ -59,7 +55,6 @@ export const enhanceImage = (imageUrl, options = {}) => {
   });
 };
 
-// Helper function to generate a filename for the downloaded image
 export const generateEnhancedFilename = (originalFilename = '') => {
   const date = new Date();
   const timestamp = `${date.getFullYear()}${(date.getMonth()+1).toString().padStart(2, '0')}${date.getDate().toString().padStart(2, '0')}`;
@@ -72,7 +67,6 @@ export const generateEnhancedFilename = (originalFilename = '') => {
   return `enhanced-image-${timestamp}.jpg`;
 };
 
-// Add a function to trigger download with feedback
 export const downloadEnhancedImage = (imageUrl, originalFilename) => {
   return new Promise((resolve, reject) => {
     try {
@@ -94,7 +88,6 @@ export const downloadEnhancedImage = (imageUrl, originalFilename) => {
   });
 };
 
-// Get image enhancement explanation
 export const getEnhancementExplanation = () => {
   return {
     title: "How Our Python Image Enhancer Works",
