@@ -12,7 +12,7 @@ import json
 from datetime import datetime
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "*"}})  # Configure CORS for all routes
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 UPLOAD_FOLDER = 'uploads'
 ENHANCED_FOLDER = 'enhanced'
@@ -21,7 +21,6 @@ HISTORY_FILE = 'processing_history.json'
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 os.makedirs(ENHANCED_FOLDER, exist_ok=True)
 
-# Load processing history if exists
 def load_history():
     if os.path.exists(HISTORY_FILE):
         try:
@@ -31,12 +30,10 @@ def load_history():
             return []
     return []
 
-# Save processing history
 def save_history(history):
     with open(HISTORY_FILE, 'w') as f:
         json.dump(history, f)
 
-# Initialize history
 processing_history = load_history()
 
 @app.route('/', methods=['GET'])
@@ -122,7 +119,6 @@ def enhance_image():
             enhanced_img.save(buffered, format="JPEG")
             img_str = base64.b64encode(buffered.getvalue()).decode('utf-8')
             
-            # Record in history
             processing_time = round(time.time() - start_time, 2)
             history_entry = {
                 "id": uuid.uuid4().hex,
@@ -174,7 +170,6 @@ def enhance_image():
         enhanced_path = os.path.join(ENHANCED_FOLDER, temp_filename)
         enhanced_img.save(enhanced_path)
         
-        # Record in history
         processing_time = round(time.time() - start_time, 2)
         history_entry = {
             "id": uuid.uuid4().hex,
@@ -197,7 +192,6 @@ def enhance_image():
         return jsonify({"error": str(e)}), 500
 
 def enhance_with_opencv(img_path, brightness=1.2, contrast=1.2):
-    """Enhance image using OpenCV"""
     img = cv2.imread(img_path)
     
     img = cv2.convertScaleAbs(img, alpha=brightness, beta=0)
@@ -210,7 +204,6 @@ def enhance_with_opencv(img_path, brightness=1.2, contrast=1.2):
     return enhanced_path
 
 def enhance_with_pil(img, brightness=1.2, contrast=1.2, saturation=1.2, sharpness=1.3):
-    """Enhance image using PIL/Pillow"""
     enhancer = ImageEnhance.Brightness(img)
     img = enhancer.enhance(brightness)
     

@@ -1,0 +1,172 @@
+/* Main animations and transitions */
+.fade-in {
+  opacity: 0;
+  animation: fadeIn 0.5s forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Pulsing button animation */
+.pulse {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(108, 92, 231, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(108, 92, 231, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(108, 92, 231, 0);
+  }
+}
+
+/* Loading spinner animation */
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  border-top-color: #00cec9;
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Upload container drag animation */
+.upload-container {
+  transition: all 0.3s ease;
+}
+
+.upload-container.dragging {
+  transform: scale(1.02);
+  border-color: #6c5ce7;
+  box-shadow: 0 0 25px rgba(108, 92, 231, 0.4);
+}
+
+/* Image comparison slider animations */
+.comparison-container {
+  transition: opacity 0.5s ease;
+}
+
+.preview-container.show .comparison-container {
+  opacity: 1;
+}
+
+.preview-container:not(.show) .comparison-container {
+  opacity: 0;
+}
+
+.slider-handle {
+  transition: left 0.1s ease;
+}
+
+.slider-circle {
+  animation: glow 2s infinite alternate;
+}
+
+@keyframes glow {
+  from { box-shadow: 0 0 5px rgba(108, 92, 231, 0.5); }
+  to { box-shadow: 0 0 15px rgba(108, 92, 231, 0.8); }
+}
+
+/* Title animation */
+.app-title .highlight {
+  position: relative;
+  color: #6c5ce7;
+}
+
+.title-underline {
+  height: 3px;
+  width: 0;
+  background: linear-gradient(to right, #6c5ce7, #00cec9, #fd79a8);
+  margin-top: 5px;
+  animation: expandWidth 1s forwards 0.5s;
+}
+
+@keyframes expandWidth {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+/* Download button hover effect */
+.download-btn {
+  transition: all 0.3s ease;
+  overflow: hidden;
+  position: relative;
+}
+
+.download-btn:after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.6s ease, height 0.6s ease;
+}
+
+.download-btn:hover:after {
+  width: 300px;
+  height: 300px;
+  opacity: 0.2;
+}
+
+/* Enhancement metrics animation */
+.enhancement-metrics .metric {
+  opacity: 0;
+  transform: translateY(10px);
+  animation: slideUp 0.5s forwards;
+}
+
+.enhancement-metrics .metric:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.enhancement-metrics .metric:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Dark theme glowing elements */
+.glow-effect {
+  position: relative;
+}
+
+.glow-effect:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: inherit;
+  box-shadow: 0 0 15px rgba(108, 92, 231, 0.4);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.glow-effect:hover:after {
+  opacity: 1;
+}

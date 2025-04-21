@@ -1,0 +1,340 @@
+/* Base styles */
+:root {
+  --primary-color: #4285f4;
+  --secondary-color: #34a853;
+  --accent-color: #fbbc05;
+  --error-color: #ea4335;
+  --text-color: #333;
+  --light-bg: #f8f9fa;
+  --border-radius: 8px;
+  --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --transition-speed: 0.3s;
+}
+
+body {
+  font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+  color: var(--text-color);
+  background-color: #f5f7fa;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  opacity: 0;
+  transition: opacity var(--transition-speed) ease;
+}
+
+.container.fade-in {
+  opacity: 1;
+}
+
+.app-title {
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 2.5rem;
+  position: relative;
+}
+
+.highlight {
+  color: var(--primary-color);
+  font-weight: bold;
+}
+
+.title-underline {
+  height: 4px;
+  background: linear-gradient(to right, var(--primary-color), var(--secondary-color), var(--accent-color), var(--error-color));
+  border-radius: 2px;
+  margin: 0.5rem auto 0;
+  max-width: 300px;
+}
+
+/* Upload container styles */
+.upload-container {
+  background-color: white;
+  border: 2px dashed #ccc;
+  border-radius: var(--border-radius);
+  padding: 2rem;
+  text-align: center;
+  margin-bottom: 2rem;
+  cursor: pointer;
+  transition: all var(--transition-speed) ease;
+}
+
+.upload-container:hover {
+  border-color: var(--primary-color);
+}
+
+.upload-container.dragging {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 15px rgba(66, 133, 244, 0.5);
+  transform: scale(1.01);
+}
+
+.upload-icon {
+  font-size: 3rem;
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+}
+
+.upload-btn {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  font-weight: bold;
+  margin: 1rem 0;
+  transition: all var(--transition-speed) ease;
+}
+
+.upload-btn:hover {
+  background-color: #3367d6;
+  transform: translateY(-2px);
+}
+
+.upload-info {
+  color: #666;
+  font-size: 0.9rem;
+  margin-top: 1rem;
+}
+
+.upload-info span {
+  display: block;
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
+  opacity: 0.8;
+}
+
+/* Preview container styles */
+.preview-container {
+  background-color: white;
+  border-radius: var(--border-radius);
+  padding: 1.5rem;
+  box-shadow: var(--box-shadow);
+  transition: opacity var(--transition-speed) ease;
+  opacity: 0;
+}
+
+.preview-container.show {
+  opacity: 1;
+}
+
+.preview-placeholder {
+  background-color: white;
+  border-radius: var(--border-radius);
+  padding: 3rem;
+  text-align: center;
+  color: #888;
+  border: 1px solid #ddd;
+}
+
+.image-comparison {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.image-box {
+  flex: 1;
+  min-width: 300px;
+}
+
+.image-box h3 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  color: var(--primary-color);
+}
+
+.image-wrapper {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--border-radius);
+  background-color: #f1f3f4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+}
+
+.image-wrapper img {
+  max-width: 100%;
+  display: block;
+}
+
+/* Loading animation */
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  height: 100%;
+}
+
+.spinner-container {
+  margin-bottom: 1rem;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(66, 133, 244, 0.3);
+  border-radius: 50%;
+  border-top-color: var(--primary-color);
+}
+
+/* Comparison slider */
+.comparison-title {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: var(--primary-color);
+}
+
+.comparison-slider {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--border-radius);
+  cursor: col-resize;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.comparison-container {
+  position: relative;
+  width: 100%;
+}
+
+.comparison-img {
+  display: block;
+  width: 100%;
+  object-fit: cover;
+}
+
+.comparison-original {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  overflow: hidden;
+  border-right: 3px solid white;
+}
+
+.slider-handle {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.slider-line {
+  width: 3px;
+  height: 100%;
+  background-color: white;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.slider-circle {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background-color: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+}
+
+.slider-arrows {
+  display: flex;
+  justify-content: space-between;
+  width: 24px;
+  color: var(--primary-color);
+  font-weight: bold;
+}
+
+/* Enhancement results */
+.enhancement-result {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.enhancement-metrics {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.metric {
+  background-color: #f1f8e9;
+  color: #43a047;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  display: inline-flex;
+  align-items: center;
+}
+
+.download-btn {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin: 0 auto;
+  transition: all var(--transition-speed) ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.download-btn:hover {
+  background-color: #3367d6;
+  transform: translateY(-2px);
+}
+
+.download-icon {
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
+  
+  .image-comparison {
+    flex-direction: column;
+  }
+  
+  .enhancement-metrics {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .app-title {
+    font-size: 2rem;
+  }
+}

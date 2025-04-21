@@ -6,17 +6,14 @@ const API_URL = 'http://localhost:5000';
 
 export const enhanceImageWithPython = async (imageFile, enhancementParams = {}) => {
   try {
-    // Convert the file to base64
     const base64Image = await fileToBase64(imageFile);
 
-    // Set up default enhancement parameters
     const params = {
       brightness: enhancementParams.brightness || 1.2,
       contrast: enhancementParams.contrast || 1.2,
       saturation: enhancementParams.saturation || 1.2,
     };
 
-    // Send to our Python backend API
     const response = await fetch(`${API_URL}/enhance`, {
       method: 'POST',
       headers: {
@@ -45,7 +42,6 @@ export const enhanceImageWithPython = async (imageFile, enhancementParams = {}) 
   }
 };
 
-// Helper function to convert a file to base64
 const fileToBase64 = (file) => {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();

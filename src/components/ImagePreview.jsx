@@ -5,10 +5,8 @@ const ImagePreview = ({ originalImage, enhancedImage, isEnhancing, originalFilen
   const handleDownload = () => {
     if (!enhancedImage) return;
 
-    // Generate a filename based on the original filename
     const downloadFilename = generateEnhancedFilename(originalFilename);
 
-    // Create a temporary anchor element
     const link = document.createElement('a');
     link.href = enhancedImage;
     link.download = downloadFilename;
@@ -19,31 +17,24 @@ const ImagePreview = ({ originalImage, enhancedImage, isEnhancing, originalFilen
 
   if (!originalImage) {
     return (
-      <div className="preview-placeholder">
-        <p>Upload an image to see the enhanced version</p>
-      </div>
+      <>
+      </>
     )
   }
 
   return (
-    <div className="preview-container">
+    <div className="preview-container fade-in">
       <div className="image-comparison">
-        <div className="image-box">
+        <div className="image-box glow-effect">
           <h3>Original Image</h3>
           <div className="image-wrapper">
             <img src={originalImage} alt="Original" />
           </div>
         </div>
         
-        <div className="image-box">
+        <div className="image-box glow-effect">
           <h3>Enhanced Image</h3>
           <div className="image-wrapper">
-            {isEnhancing && (
-              <div className="loading">
-                <div className="spinner"></div>
-                <p>Applying AI enhancements...</p>
-              </div>
-            )}
             {!isEnhancing && enhancedImage && (
               <img src={enhancedImage} alt="Enhanced" />
             )}
@@ -53,13 +44,16 @@ const ImagePreview = ({ originalImage, enhancedImage, isEnhancing, originalFilen
           </div>
           {enhancedImage && !isEnhancing && (
             <>
-              <div className="enhancement-metrics">
-                <span className="metric">✓ Brightness enhanced</span>
-                <span className="metric">✓ Contrast improved</span>
-                <span className="metric">✓ Colors enriched</span>
-              </div>
-              <button className="download-btn" onClick={handleDownload}>
-                <span className="download-icon">↓</span> Download Enhanced Image
+              <button 
+                className="download-btn" 
+                onClick={handleDownload}
+                aria-label="Download enhanced image"
+              >
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                  <path d="M8 12l-4-4h2.5V3h3v5H12L8 12z"/>
+                  <path d="M14 14H2v-3h2v1h8v-1h2v3z"/>
+                </svg>
+                Download Enhanced Image
               </button>
             </>
           )}

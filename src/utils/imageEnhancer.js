@@ -8,44 +8,35 @@ export const enhanceImage = (imageUrl, options = {}) => {
     const img = new Image();
     img.crossOrigin = "Anonymous";
     img.onload = () => {
-      // Create canvas
       const canvas = document.createElement('canvas');
       const ctx = canvas.getContext('2d');
       
-      // Set canvas dimensions to match image
       canvas.width = img.width;
       canvas.height = img.height;
       
-      // Draw original image to canvas
       ctx.drawImage(img, 0, 0);
       
-      // Get image data
       const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
       const data = imageData.data;
       
-      // Default enhancement settings
       const settings = {
-        brightness: options.brightness || 15,  // -100 to 100
-        contrast: options.contrast || 20,      // -100 to 100
-        saturation: options.saturation || 20,  // -100 to 100
-        sharpness: options.sharpness || 0.5    // 0 to 1
+        brightness: options.brightness || 15,
+        contrast: options.contrast || 20,
+        saturation: options.saturation || 20,
+        sharpness: options.sharpness || 0.5
       };
       
-      // Apply brightness and contrast
       const factor = (259 * (settings.contrast + 255)) / (255 * (259 - settings.contrast));
       
       for (let i = 0; i < data.length; i += 4) {
-        // Brightness
-        data[i] += settings.brightness;     // red
-        data[i+1] += settings.brightness;   // green
-        data[i+2] += settings.brightness;   // blue
+        data[i] += settings.brightness;
+        data[i+1] += settings.brightness;
+        data[i+2] += settings.brightness;
         
-        // Contrast
         data[i] = factor * (data[i] - 128) + 128;
         data[i+1] = factor * (data[i+1] - 128) + 128;
         data[i+2] = factor * (data[i+2] - 128) + 128;
         
-        // Saturation
         const gray = 0.2989 * data[i] + 0.5870 * data[i+1] + 0.1140 * data[i+2];
         const satFactor = 1 + settings.saturation / 100;
         
@@ -54,15 +45,12 @@ export const enhanceImage = (imageUrl, options = {}) => {
         data[i+2] = gray + satFactor * (data[i+2] - gray);
       }
       
-      // Apply the modified data back to canvas
       ctx.putImageData(imageData, 0, 0);
       
-      // Add a small watermark in the corner
       ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
       ctx.font = '12px Arial';
       ctx.fillText('Enhanced with AI', 10, canvas.height - 10);
       
-      // Convert canvas to data URL with higher quality for downloads
       const enhancedImageUrl = canvas.toDataURL('image/jpeg', 0.95);
       resolve(enhancedImageUrl);
     };
@@ -77,12 +65,33 @@ export const generateEnhancedFilename = (originalFilename = '') => {
   const timestamp = `${date.getFullYear()}${(date.getMonth()+1).toString().padStart(2, '0')}${date.getDate().toString().padStart(2, '0')}`;
   
   if (originalFilename) {
-    // Extract base name without extension
     const baseName = originalFilename.replace(/\.[^/.]+$/, "");
     return `${baseName}-enhanced-${timestamp}.jpg`;
   }
   
   return `enhanced-image-${timestamp}.jpg`;
+};
+
+// Add a function to trigger download with feedback
+export const downloadEnhancedImage = (imageUrl, originalFilename) => {
+  return new Promise((resolve, reject) => {
+    try {
+      const downloadFilename = generateEnhancedFilename(originalFilename);
+      
+      const link = document.createElement('a');
+      link.href = imageUrl;
+      link.download = downloadFilename;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      
+      setTimeout(() => {
+        resolve(downloadFilename);
+      }, 500);
+    } catch (error) {
+      reject(error);
+    }
+  });
 };
 
 // Get image enhancement explanation
