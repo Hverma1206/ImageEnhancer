@@ -42,7 +42,7 @@ def server():
         "message": "Image Enhancement API is running",
         "status": "healthy",
         "version": "1.0.0",
-        "endpoints": {
+                "endpoints": {
             "/": "Server health check",
             "/enhance": "Enhance an image",
             "/options": "Get enhancement options",
@@ -219,4 +219,5 @@ def enhance_with_pil(img, brightness=1.2, contrast=1.2, saturation=1.2, sharpnes
     return img
 
 if __name__ == '__main__':
+
     app.run(debug=True, host='0.0.0.0', port=5000)
